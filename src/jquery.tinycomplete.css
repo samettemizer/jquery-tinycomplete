@@ -1,0 +1,32 @@
+.tc-wrapper {
+	z-index: 999;
+	position: absolute;
+}
+.tc-wrapper .tc-container {
+	max-height:125px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border:1px solid #999;
+	border-top:none;
+	margin: 0px;
+	padding: 0px;
+}
+.tc-wrapper .tc-container > * {
+	background:#f9f9f9;
+	cursor:pointer;
+	line-height:20px;
+	border-bottom:1px dotted #999;
+	white-space:nowrap;
+	padding: 0 4px;
+}
+.tc-wrapper .tc-container > *.item-active {
+	background:#E8FFE8!important;
+}
+.tc-wrapper .tc-container > *.removingitem {
+	background:#FFE2DE!important;
+}
+.tc-spinner {
+    background-image: url("img/spinner.gif") !important;
+    background-repeat: no-repeat !important; 
+    background-position: right 50%;
+}
