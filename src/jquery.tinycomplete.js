@@ -10,14 +10,15 @@
 (function ($) {
 	$.fn.tinycomplete = function(vars) {
 		var defaults = {
+			type    : 'combo',	// or list
 			enterkey : false,
 			minlen  : 2,
-			limit   : 25, // results
-			type    : 'combo', // or list
-			url     : null, // post url
-			postkey : null,
-			itemclass : 'tc-item',
-			hiddenobj : 'tc-hidden',
+			requestmethod : 'post', // or 'get'
+			requesturl    : null,
+			requestkey    : null,
+			responsetype  : 'json', // or 'html'
+			itemclass      : 'tc-item',
+			hiddenobj      : 'tc-hidden',
 			itemoperations : 'tc-item-operations',
 			callback  : null
 		};
@@ -86,17 +87,23 @@
 				if (!disabled && event.keyCode!=27 && event.keyCode!=39 && event.keyCode!=37)
 				{
 					if (event.keyCode!=38 && event.keyCode!=40)
+					{
 						$('.item-active').removeClass('item-active');
+					}
 					if (obj.val().length<options.minlen || 
 						event.keyCode==38 || event.keyCode==40 || 
 						(event.keyCode==13 && !options.enterkey)) return;
 					//
-					if (!options.enterkey || (options.enterkey && event.keyCode==13)) {
-						if (!options.postkey) options.postkey = obj.attr("id") || "tinycomplete";
+					if (!options.enterkey || (options.enterkey && event.keyCode==13))
+					{
+						if (!options.requestkey)
+						{
+							options.requestkey = obj.attr("id") || "tinycomplete";
+						}	
 						$.ajax({
-							type: 'post',
-							url: options.url,
-							data: options.postkey+'='+obj.val()+"&limit="+options.limit,
+							type: options.requestmethod,
+							url: options.requesturl,
+							data: options.requestkey+'='+obj.val(),
 							beforeSend: function() {
 								$(".tc-spinner").removeClass("tc-spinner");
 								obj.addClass("tc-spinner");
@@ -105,6 +112,21 @@
 								}
 							},
 							success: function(response) {
+								if (options.responsetype == 'json')
+								{
+									var html = '';
+									if (response.data)
+									{
+										html = '<ul class="tc-container">';
+										$.each(response.data, function(i,row) {
+											html += response.tpl.replace(/{([^{} ]+)}/g, function(match, contents) {
+												return row[contents];
+											});
+										});
+										html += '</ul>';
+									}
+									response = html;
+								}
 								if ($(":focus").is(obj) || options.type=="list") {
 									wrapper.html(response);
 									container = wrapper.find(".tc-container");
@@ -145,7 +167,7 @@
 								obj.removeClass("tc-spinner");
 								if (options.enterkey) obj.removeAttr("readonly");
 							}
-						}); 
+						});
 					}
 				}
 				disabled = false;
