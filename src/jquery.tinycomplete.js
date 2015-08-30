@@ -2,7 +2,7 @@
  * jquery.tinycomplete [ https://github.com/nestisamet/jquery.tinycomplete ]
  * requires jquery.scrollintoview [https://github.com/litera/jquery-scrollintoview]
  * 
- * Copyright 2014 stemizer.net ~ nestisamet<a>gmail<d>com
+ * Copyright 2014 stemizer.net ~ info<a>stemizer<d>net
  * Licensed under the MIT license
  * http://opensource.org/licenses/mit
  */
@@ -161,7 +161,7 @@
 										});
 									}
 									if ($.type(options.callback)==="function") {
-										options.callback.call(this,self);
+										options.callback.call(this,obj,self);
 									}
 								}
 								obj.removeClass("tc-spinner");
