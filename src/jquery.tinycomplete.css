@@ -11,7 +11,7 @@
 	margin: 0px;
 	padding: 0px;
 }
-.tc-wrapper .tc-container > * {
+.tc-wrapper .tc-container > li.tc-item {
 	background:#f9f9f9;
 	cursor:pointer;
 	line-height:20px;
@@ -19,14 +19,14 @@
 	white-space:nowrap;
 	padding: 0 4px;
 }
-.tc-wrapper .tc-container > *.item-active {
+.tc-wrapper .tc-container > li.tc-item.item-active {
 	background:#E8FFE8!important;
 }
-.tc-wrapper .tc-container > *.removingitem {
+.tc-wrapper .tc-container > li.tc-item.removingitem {
 	background:#FFE2DE!important;
 }
 .tc-spinner {
     background-image: url("img/spinner.gif") !important;
     background-repeat: no-repeat !important; 
-    background-position: right 50%;
+    background-position: 99% 50%;
 }
